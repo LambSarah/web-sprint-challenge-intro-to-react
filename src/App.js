@@ -30,11 +30,9 @@ const App = () => {
   return (
     <div className="App">
       <StyledHeader>Characters</StyledHeader>
-        <Characters characters={characters}
-          currentCharacterId={currentCharacterId}
-        />
-        
-       </div>
+      <Characters characters={characters}
+          currentCharacterId={currentCharacterId}/> 
+    </div>
   );
 }
 
