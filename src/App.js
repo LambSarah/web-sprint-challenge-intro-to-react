@@ -1,17 +1,37 @@
-import React from 'react';
-import './App.css';
+import React,{useState,useEffect} from 'react';
+import styled from 'styled-components'
+import Characters from './components/Characters.js'
+import {BASE_URL} from './constants.js'
+import axios from 'axios'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+// Styling for page header
+const StyledHeader = styled.h1`
+font-family: 'Megrim',cursive;
+font-weight:900;
+font-size:150px;
+text-align:center;
+`
 
 const App = () => {
-  // Try to think through what state you'll need for this app before starting. Then build out
-  // the state properties here.
 
-  // Fetch characters from the API in an effect hook. Remember, anytime you have a 
-  // side effect in a component, you want to think about which state and/or props it should
-  // sync up with, if any.
+    //set up necessary slices of state
+    const [characters, getCharacters] = useState([])
+    const [currentCharacterId, setCurrentCharacterId] = useState()
+
+    // use 'useEffect' hook to make API call
+    useEffect(() =>{
+        axios.get( `${BASE_URL}/people`)
+        .then(response => {
+            getCharacters(response.data)
+        })
+    },[])
 
   return (
     <div className="App">
-      <h1 className="Header">Characters</h1>
+      <StyledHeader>Characters</StyledHeader>
+      <Characters characters={characters}
+          currentCharacterId={currentCharacterId}/> 
     </div>
   );
 }
